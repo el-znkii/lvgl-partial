@@ -1,0 +1,27 @@
+
+name: Update
+
+on:
+  schedule:
+    - cron:  '08 8 * * 3'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Configure Git
+        run: |
+          git config --global user.email "bot@metio.io"
+          git config --global user.name "metio update bot"
+      - name: Update repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          wget -qL https://raw.githubusercontent.com/modm-ext/partial/main/partial.py
+          python3 partial.py -v lvgl/LVGL LICENSE.txt "lv*.h" "src/**/*"
+      - name: Git push
+        run: |
+          git push origin main
