@@ -25,7 +25,7 @@ jobs:
       - name: Update repository
         run: |
           wget -qL https://raw.githubusercontent.com/modm-ext/partial/main/partial.py
-          python3 partial.py -v lvgl/LVGL LICENSE.txt "lv*.h" "src/**/*"
+          python3 partial.py -v lvgl/LVGL LICENCE.txt "lv*.h" "src/**/*"
 
       - name: Git push
         run: |
